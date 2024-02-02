@@ -8,6 +8,6 @@ terraform {
 }
 
 inputs = {
-  origin_domain_name = "p81-${local.environment}-bucket.s3.amazonaws.com"
-  origin_id = "S3-p81-${local.environment}-bucket"
+  origin_domain_name = "alon-${local.environment}-bucket.s3.amazonaws.com"
+  origin_id = "S3-alon-${local.environment}-bucket"
 }

@@ -21,7 +21,7 @@ variable "tags" {
   default     = {}
 }
 
-variable "cloudfront_distribution_id" {
-  description = "The ID of the CloudFront distribution that can access the S3 bucket."
-  type        = string
-}
+# variable "cloudfront_distribution_id" {
+#   description = "The ID of the CloudFront distribution that can access the S3 bucket."
+#   type        = string
+# }

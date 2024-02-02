@@ -32,5 +32,8 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  tags = var.tags
+  tags = {
+    Description = "devops assingment p81",
+    Type        = "dev"
+  }
 }
