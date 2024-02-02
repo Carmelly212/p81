@@ -1,0 +1,8 @@
+.terraform*
+.terragrunt-cache
+*.tfstate
+*.tfstate*
+.DS_Store
+*.secrets.tfvars
+.terragrunt-cache/*
+p81.code-workspace
