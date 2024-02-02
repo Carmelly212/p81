@@ -3,6 +3,6 @@
 *.tfstate
 *.tfstate*
 .DS_Store
-*.secrets.tfvars
+secrets.tfvars
 .terragrunt-cache/*
-p81.code-workspace
+*.code-workspace

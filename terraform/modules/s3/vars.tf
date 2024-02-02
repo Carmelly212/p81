@@ -21,12 +21,6 @@ variable "tags" {
   default     = {}
 }
 
-# Add these variables based on your main.tf updates
-variable "aws_account_id" {
-  description = "The AWS Account ID."
-  type        = string
-}
-
 variable "cloudfront_distribution_id" {
   description = "The ID of the CloudFront distribution that can access the S3 bucket."
   type        = string
