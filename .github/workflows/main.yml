@@ -74,6 +74,11 @@ jobs:
     runs-on: ubuntu-20.04
     needs: infra
     env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      p81ENV: ${{ vars.p81ENV }}
       # CLOUDFRONT_URL: ${{ needs.infra.outputs.CLOUDFRONT_URL }}
       # BUCKET_ID: ${{ needs.infra.outputs.BUCKET_ID }}
       CLOUDFRONT_URL: d1fddevmotqu0j.cloudfront.net
