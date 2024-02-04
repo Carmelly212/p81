@@ -56,6 +56,10 @@ jobs:
       run: terragrunt init --terragrunt-non-interactive
       working-directory: ./terraform/environments/dev
   
+    - name: Terragrunt plan
+      run: terragrunt run-all plan --terragrunt-non-interactive
+      working-directory: ./terraform/environments/dev
+  
   # run_python_script:
   #   name: Run Python Script
   #   runs-on: ubuntu-latest
