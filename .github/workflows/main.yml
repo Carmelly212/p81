@@ -76,8 +76,8 @@ jobs:
     steps:
       - name: Use Environment Variables in Next Stage
         run: |
-            echo "CLOUDFRONT_URL: $CLOUDFRONT_URL"
-            echo "BUCKET_ID: $BUCKET_ID"
+            echo $CLOUDFRONT_URL
+            echo $BUCKET_ID
 
       # - name: Checkout code
       #   uses: actions/checkout@v2
