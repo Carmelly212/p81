@@ -70,6 +70,9 @@ jobs:
     name: Run Python Script
     runs-on: ubuntu-latest
     needs: deploy
+    env:
+      CLOUDFRONT_URL: ${{ vars.CLOUDFRONT_URL }}
+      BUCKET_ID: ${{ vars.BUCKET_ID }}
     steps:
       - name: Use Environment Variables in Next Stage
         run: |
