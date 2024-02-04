@@ -8,13 +8,17 @@ variable "origin_id" {
   type        = string
 }
 
-variable "tags" {
-  description = "A mapping of tags to assign to the distribution."
-  type        = map(string)
-  default     = {}
-}
+
 variable "cloudfront_distribution_id" {
   description = "The CloudFront Distribution ID"
   type        = string
   default     = "some-default-value"  # Only if a sensible default is possible
 }
+
+// q: what is the purpose of the origin_domain_name and where to get it from?
+
+// q:  where to use origin_domain_name and origin_id? 
+
+
+
+

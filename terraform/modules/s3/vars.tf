@@ -1,27 +1,15 @@
 variable "bucket_name" {
-  description = "The name of the bucket."
   type        = string
 }
 
-variable "acl" {
-  description = "The canned ACL to apply. Defaults to 'private'."
-  type        = string
-  default     = "private"
+variable "aws_account_id" {
+  description = "AWS Account ID"
 }
 
-variable "versioning" {
-  description = "A state of versioning (should be true or false)."
-  type        = bool
-  default     = false
+variable "cloudfront_distribution_id" {
+  description = "cloudfront_distribution_id"
 }
 
-variable "tags" {
-  description = "A mapping of tags to assign to the bucket."
-  type        = map(string)
-  default     = {}
+variable "cloudfront_oai_id" {
+  description = "cloudfront_oai_id"
 }
-
-# variable "cloudfront_distribution_id" {
-#   description = "The ID of the CloudFront distribution that can access the S3 bucket."
-#   type        = string
-# }
