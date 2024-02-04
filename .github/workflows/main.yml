@@ -89,7 +89,6 @@ jobs:
       - uses: actions/setup-python@v3
         with:
           python-version: '3.x' 
-          # cache: "pip"
 
       - name: Install dependencies
         run: |
@@ -97,5 +96,5 @@ jobs:
           pip install requests boto3
 
       - name: Execute Python script
-        run: data_processing.py
+        run: ./data_processing.py
         working-directory: ./python
