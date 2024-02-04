@@ -10,6 +10,9 @@ jobs:
     name: 'deploy'
     runs-on: ubuntu-20.04
 
+    outputs:
+      CLOUDFRONT_URL: ${{ steps.env.outputs.CLOUDFRONT_URL }}
+      BUCKET_ID: ${{ steps.env.outputs.BUCKET_ID }}
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -43,18 +46,19 @@ jobs:
     #     terragrunt_version: 0.35.16
     #     token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Export Environment Variables
-      run: |
-        echo "CLOUDFRONT_URL=test002" >> $GITHUB_ENV
-        echo "BUCKET_ID=test003" >> $GITHUB_ENV
+    # - name: Export outputs from terrafrom to GITHUB_OUTPUT
+    #   id: env
+    #   run: |
+    #     echo CLOUDFRONT_URL=$(cd cloudfront && terragrunt output -raw cloudfront_url) >> $GITHUB_OUTPUT
+    #     echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) >> $GITHUB_OUTPUT
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
-    # - name: Debug Environment Variables
-    #   run: |
-    #     echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
-    #     echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
-    #     echo "AWS_REGION: $AWS_REGION"
-    #     echo "P81ENV: $P81ENV"
+    - name: Debug Environment Variables
+      run: |
+        echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
+        echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+        echo "AWS_REGION: $AWS_REGION"
+        echo "P81ENV: $P81ENV"
 
 
     # - name: Terragrunt Init in dev environment
@@ -67,29 +71,31 @@ jobs:
 
   code:
     name: Run Python Script
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: infra
     env:
-      CLOUDFRONT_URL: ${{ needs.infra.outputs.CLOUDFRONT_URL }}
-      BUCKET_ID: ${{ needs.infra.outputs.BUCKET_ID }}
+      # CLOUDFRONT_URL: ${{ needs.infra.outputs.CLOUDFRONT_URL }}
+      # BUCKET_ID: ${{ needs.infra.outputs.BUCKET_ID }}
+      CLOUDFRONT_URL: d1fddevmotqu0j.cloudfront.net
+      BUCKET_ID: alon-p81-dev02-bucket
     steps:
       - name: Use Environment Variables in Next Stage
         run: |
             echo $CLOUDFRONT_URL
             echo $BUCKET_ID
+            
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.x' 
+          cache: "pip"
 
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests boto3
 
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v2
-  #       with:
-  #         python-version: '3.8'
-
-  #     - name: Install dependencies
-  #       run: |
-  #         python -m pip install --upgrade pip
-  #         pip install requests boto3
-
-  #     - name: Execute Python script
-  #       run: python path/to/your/python/script.py
+      - name: Execute Python script
+        run: data_processing.py
+        working-directory: ./python

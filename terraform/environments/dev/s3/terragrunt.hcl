@@ -11,7 +11,7 @@ dependency "cloudfront" {
   }
 }
 terraform {
-  source = "../../../modules/s3"
+  source = "../../../modules//s3"
 }
 
 inputs = {

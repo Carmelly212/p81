@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
-  acl = "private"
+  # acl = "private"
 
   tags = {
     "Name"      = "ProductCloudFront",
