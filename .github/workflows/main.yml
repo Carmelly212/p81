@@ -20,14 +20,29 @@ jobs:
       AWS_REGION: ${{ vars.AWS_REGION }}
       p81ENV: ${{ vars.p81ENV }}
     steps:
+    # # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Set environment variables from .env
+      run: |
+        ls -h
+        if [ -f .env ]; then
+          export $(cat .env | xargs)
+        fi
+      working-directory: ./terraform/
+
+    - name: Print environment variables
+      run: |
+        # echo "environmet name from .env file as $p81ENV =  $p81ENV"
+        echo "$p81ENV"
+        echo "$p81ENV"
+        echo "$p81ENV"
+
     # - name: Update package lists
     #   run: sudo apt-get update
     # - name: Install unzip
     #   run: sudo apt-get install unzip
 
-    # # Checkout the repository to the GitHub Actions runner
-    # - name: Checkout
-    #   uses: actions/checkout@v4
 
     # # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
     # - name: Setup Terraform v1.3.7
