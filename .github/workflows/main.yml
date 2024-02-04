@@ -45,10 +45,9 @@ jobs:
 
     - name: Export Environment Variables
       run: |
-        CLOUDFRONT_URL=test002
-        BUCKET_ID=test003
-        echo "CLOUDFRONT_URL=$CLOUDFRONT_URL" >> $GITHUB_OUTPUT
-        echo "BUCKET_ID=$BUCKET_ID" >> $GITHUB_OUTPUT
+        echo "CLOUDFRONT_URL=test002" >> $GITHUB_ENV
+        echo "BUCKET_ID=test003" >> $GITHUB_ENV
+
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     # - name: Debug Environment Variables
     #   run: |
@@ -70,9 +69,6 @@ jobs:
     name: Run Python Script
     runs-on: ubuntu-latest
     needs: deploy
-    env:
-      CLOUDFRONT_URL: ${{ vars.CLOUDFRONT_URL }}
-      BUCKET_ID: ${{ vars.BUCKET_ID }}
     steps:
       - name: Use Environment Variables in Next Stage
         run: |
