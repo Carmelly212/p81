@@ -17,9 +17,9 @@ jobs:
       P81ENV: ${{ vars.P81ENV }}
     steps:
     - name: Update package lists
-      run: apt-get update
+      run: sudo apt-get update
     - name: Install unzip
-      run: apt-get install unzip
+      run: sudo apt-get install unzip
 
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
