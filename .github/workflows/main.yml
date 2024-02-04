@@ -6,8 +6,8 @@ on:
   #   - main
 
 jobs:
-  Terragrunt:
-    name: 'Terragrunt'
+  deploy:
+    name: 'deploy'
     runs-on: ubuntu-20.04
 
     env:
@@ -43,6 +43,10 @@ jobs:
         terragrunt_version: 0.35.16
         token: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Export Environment Variables
+      run: |
+        echo "CLOUDFRONT_URL=test002" >> $GITHUB_ENV
+        echo "BUCKET_ID=test003" >> $GITHUB_ENV
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     # - name: Debug Environment Variables
     #   run: |
@@ -52,21 +56,26 @@ jobs:
     #     echo "P81ENV: $P81ENV"
 
 
-    - name: Terragrunt Init in dev environment
-      run: terragrunt init --terragrunt-non-interactive
-      working-directory: ./terraform/environments/dev
+    # - name: Terragrunt Init in dev environment
+    #   run: terragrunt init --terragrunt-non-interactive
+    #   working-directory: ./terraform/environments/dev
   
-    - name: Terragrunt plan
-      run: terragrunt run-all plan --terragrunt-non-interactive
-      working-directory: ./terraform/environments/dev
-  
-  # run_python_script:
-  #   name: Run Python Script
-  #   runs-on: ubuntu-latest
-  #   needs: deploy
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v2
+    # - name: Terragrunt plan
+    #   run: terragrunt run-all plan --terragrunt-non-interactive
+    #   working-directory: ./terraform/environments/dev
+
+  run_python_script:
+    name: Run Python Script
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Use Environment Variables in Next Stage
+        run: |
+            echo "CLOUDFRONT_URL: $CLOUDFRONT_URL"
+            echo "BUCKET_ID: $BUCKET_ID"
+
+      # - name: Checkout code
+      #   uses: actions/checkout@v2
 
   #     - name: Set up Python
   #       uses: actions/setup-python@v2
