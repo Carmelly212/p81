@@ -3,7 +3,7 @@ locals {
   region = get_env("AWS_REGION")
 }
 terraform {
-  source = "../../../modules//cloudfront"
+  source = "../../../modules/cloudfront"
 }
 
 inputs = {
