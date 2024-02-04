@@ -1,5 +1,3 @@
-# /dev/s3/terragrunt.hcl
-# child 
 locals {
   environment = get_env("p81ENV")
   aws_account_id = get_env("AWS_ACCOUNT_ID")

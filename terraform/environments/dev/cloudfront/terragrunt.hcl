@@ -1,5 +1,3 @@
-# child 
-
 locals {
   environment = get_env("p81ENV")
   region = get_env("AWS_REGION")
