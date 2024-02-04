@@ -47,8 +47,8 @@ jobs:
       run: |
         CLOUDFRONT_URL=test002
         BUCKET_ID=test003
-        echo "CLOUDFRONT_URL=$CLOUDFRONT_URL" >> $GITHUB_ENV
-        echo "BUCKET_ID=$BUCKET_ID" >> $GITHUB_ENV
+        echo "CLOUDFRONT_URL=$CLOUDFRONT_URL" >> $GITHUB_OUTPUT
+        echo "BUCKET_ID=$BUCKET_ID" >> $GITHUB_OUTPUT
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     # - name: Debug Environment Variables
     #   run: |
