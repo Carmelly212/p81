@@ -2,8 +2,8 @@ name: 'p81'
 
 on:
   push:
-  #   branches:
-  #   - main
+    branches:
+    - main
 
 jobs:
   infra:
@@ -17,8 +17,6 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-      AWS_REGION: ${{ vars.AWS_REGION }}
-      p81ENV: ${{ vars.p81ENV }}
     steps:
     # # Checkout the repository to the GitHub Actions runner
     - name: Checkout
@@ -36,51 +34,43 @@ jobs:
         echo "environmet name: $p81ENV"
         echo "AWS_REGION: $AWS_REGION"
 
-    # - name: Update package lists
-    #   run: sudo apt-get update
-    # - name: Install unzip
-    #   run: sudo apt-get install unzip
+    - name: Update package lists
+      run: sudo apt-get update
+    - name: Install unzip
+      run: sudo apt-get install unzip
 
 
-    # # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
-    # - name: Setup Terraform v1.3.7
-    #   uses: hashicorp/setup-Terraform@v1
-    #   with:
-    #     terraform_version: 1.3.7
-    #     terraform_wrapper: false
-    # - name: Setup Terraform version
-    #   run: terraform --version
-    # - name: Setup Terraform wrapper path
-    #   run: which terraform
+    # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
+    - name: Setup Terraform v1.3.7
+      uses: hashicorp/setup-Terraform@v1
+      with:
+        terraform_version: 1.3.7
+        terraform_wrapper: false
+    - name: Setup Terraform version
+      run: terraform --version
+    - name: Setup Terraform wrapper path
+      run: which terraform
 
-    # - name: Setup Terragrunt version 0.35.16
-    #   uses: autero1/action-terragrunt@v1.1.0
-    #   with:
-    #     terragrunt_version: 0.35.16
-    #     token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Setup Terragrunt version 0.35.16
+      uses: autero1/action-terragrunt@v1.1.0
+      with:
+        terragrunt_version: 0.35.16
+        token: ${{ secrets.GITHUB_TOKEN }}
 
-    # - name: Export outputs from terrafrom to GITHUB_OUTPUT
-    #   id: env
-    #   run: |
-    #     echo CLOUDFRONT_URL=$(cd cloudfront && terragrunt output -raw cloudfront_url) >> $GITHUB_OUTPUT
-    #     echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) >> $GITHUB_OUTPUT
+    - name: Export outputs from terrafrom to GITHUB_OUTPUT
+      id: env
+      run: |
+        echo CLOUDFRONT_URL=$(cd cloudfront && terragrunt output -raw cloudfront_url) >> $GITHUB_OUTPUT
+        echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) >> $GITHUB_OUTPUT
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Debug Environment Variables
-      run: |
-        echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
-        echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
-        echo "AWS_REGION: $AWS_REGION"
-        echo "Environment name p81ENV: $p81ENV"
-
-
-    # - name: Terragrunt Init in dev environment
-    #   run: terragrunt init --terragrunt-non-interactive
-    #   working-directory: ./terraform/environments/dev
+    - name: Terragrunt Init in dev environment
+      run: terragrunt init --terragrunt-non-interactive
+      working-directory: ./terraform/environments/dev
   
-    # - name: Terragrunt plan
-    #   run: terragrunt run-all plan --terragrunt-non-interactive
-    #   working-directory: ./terraform/environments/dev
+    - name: Terragrunt apply
+      run: terragrunt run-all apply --terragrunt-non-interactive -auto-approve
+      working-directory: ./terraform/environments/dev
 
   code:
     name: Run Python Script
@@ -90,12 +80,10 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-      AWS_REGION: ${{ vars.AWS_REGION }}
-      p81ENV: ${{ vars.p81ENV }}
-      # CLOUDFRONT_URL: ${{ needs.infra.outputs.CLOUDFRONT_URL }}
-      # BUCKET_ID: ${{ needs.infra.outputs.BUCKET_ID }}
-      CLOUDFRONT_URL: d1fddevmotqu0j.cloudfront.net
-      BUCKET_ID: alon-p81-dev02-bucket
+      CLOUDFRONT_URL: ${{ needs.infra.outputs.CLOUDFRONT_URL }}
+      BUCKET_ID: ${{ needs.infra.outputs.BUCKET_ID }}
+      # CLOUDFRONT_URL: d1fddevmotqu0j.cloudfront.net
+      # BUCKET_ID: alon-p81-dev02-bucket
     steps:
       - name: Use Environment Variables in Next Stage
         run: |
