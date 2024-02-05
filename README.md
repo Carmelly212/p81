@@ -45,6 +45,7 @@ Ensure the following mandatory environment variables are defined in your `terraf
 
 ## Future Improvements
 
+- Refactor Terragrunt configurations to adhere to DRY principles, minimizing repetition of environment variables and tags across child modules.
 - Implement a script to gracefully destroy the environment, utilizing the AWS CLI to empty the S3 buckets. Terragrunt will manage the resource teardown, while bucket names will be dynamically generated per environment to be empyied and deleted.
 - Update CI/CD workflows and dependencies to address deprecations and transition to Node.js 20, ensuring compliance with the latest GitHub Actions requirements.
 
