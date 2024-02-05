@@ -64,10 +64,10 @@ jobs:
         echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) >> $GITHUB_OUTPUT
       working-directory: ./terraform/environments/dev
 
-    # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terragrunt Init in dev environment
-      run: terragrunt init --terragrunt-non-interactive
-      working-directory: ./terraform/environments/dev
+    # # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
+    # - name: Terragrunt Init in dev environment
+    #   run: terragrunt init --terragrunt-non-interactive
+    #   working-directory: ./terraform/environments/dev
   
     - name: Terragrunt apply
       run: terragrunt run-all apply --terragrunt-non-interactive -auto-approve
