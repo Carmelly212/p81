@@ -39,7 +39,6 @@ jobs:
     - name: Install unzip
       run: sudo apt-get install unzip
 
-
     # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
     - name: Setup Terraform v1.3.7
       uses: hashicorp/setup-Terraform@v1
@@ -57,15 +56,6 @@ jobs:
         terragrunt_version: 0.35.16
         token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Export outputs from terrafrom to GITHUB_OUTPUT
-      id: env
-      run: |
-        echo CLOUDFRONT_URL=$(cd cloudfront && terragrunt output -raw cloudfront_url) 
-        echo CLOUDFRONT_URL=$(cd cloudfront && terragrunt output -raw cloudfront_url) >> $GITHUB_OUTPUT
-        echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) 
-        echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) >> $GITHUB_OUTPUT
-      working-directory: ./terraform/environments/dev
-
     # # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     # - name: Terragrunt Init in dev environment
     #   run: terragrunt init --terragrunt-non-interactive
@@ -73,6 +63,15 @@ jobs:
   
     - name: Terragrunt apply
       run: terragrunt run-all apply --terragrunt-non-interactive -auto-approve
+      working-directory: ./terraform/environments/dev
+
+    - name: Export outputs from terrafrom to GITHUB_OUTPUT
+      id: env
+      run: |
+        echo CLOUDFRONT_URL=$(cd cloudfront && terragrunt output -raw cloudfront_url) 
+        echo CLOUDFRONT_URL=$(cd cloudfront && terragrunt output -raw cloudfront_url) >> $GITHUB_OUTPUT
+        echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) 
+        echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) >> $GITHUB_OUTPUT
       working-directory: ./terraform/environments/dev
 
   code:
