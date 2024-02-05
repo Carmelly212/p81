@@ -38,7 +38,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  tags = var.tags
+  # tags = var.tags
 }
 
 resource "aws_cloudfront_origin_access_identity" "oai" {
