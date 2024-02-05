@@ -6,6 +6,11 @@ include {
 locals {
   environment = get_env("p81ENV")
   aws_account_id = get_env("AWS_ACCOUNT_ID")
+  tags = {
+    Name      = "ProductCloudFront"
+    Owner     = "Alon Carmelly" 
+    Terraform = "True"
+  }
 }
 # dependency on the cloudfront module and mock the outputs so we can use them in the s3 module
 dependency "cloudfront" {
@@ -25,5 +30,5 @@ inputs = {
   aws_account_id = local.aws_account_id
   cloudfront_distribution_id = "${dependency.cloudfront.outputs.cloudfront_distribution_id}"
   cloudfront_oai_id = "${dependency.cloudfront.outputs.cloudfront_oai_id}"
-  tags = read_terragrunt_config(find_in_parent_folders("terragrunt.hcl")).locals.common_tags
+  tags = local.tags
 }
