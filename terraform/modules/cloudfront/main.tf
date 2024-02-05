@@ -38,7 +38,10 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  tags = var.tags
+  tags = {
+    Description = "devops assignment p81"
+    Type        = "dev"
+  }
 }
 
 resource "aws_cloudfront_origin_access_identity" "oai" {
