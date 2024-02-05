@@ -25,4 +25,5 @@ inputs = {
   aws_account_id = local.aws_account_id
   cloudfront_distribution_id = "${dependency.cloudfront.outputs.cloudfront_distribution_id}"
   cloudfront_oai_id = "${dependency.cloudfront.outputs.cloudfront_oai_id}"
+  tags = read_terragrunt_config(find_in_parent_folders("terragrunt.hcl")).locals.common_tags
 }

@@ -15,6 +15,7 @@ terraform {
 inputs = {
   origin_domain_name = "alon-p81-${local.environment}-bucket.s3.${local.region}.amazonaws.com"
   origin_id = "alon-p81-${local.environment}-bucket"
+  tags = read_terragrunt_config(find_in_parent_folders("terragrunt.hcl")).locals.common_tags
 }
 
 
