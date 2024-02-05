@@ -16,12 +16,12 @@ resource "aws_s3_bucket_ownership_controls" "aws_s3_bucket_ownership_controls" {
   }
 }
 
-resource "aws_s3_bucket_acl" "acl" {
-  depends_on = [aws_s3_bucket_ownership_controls.aws_s3_bucket_ownership_controls]
+# resource "aws_s3_bucket_acl" "acl" {
+#   depends_on = [aws_s3_bucket_ownership_controls.aws_s3_bucket_ownership_controls]
 
-  bucket = aws_s3_bucket.bucket.id
-  acl    = "private"
-}
+#   bucket = aws_s3_bucket.bucket.id
+#   acl    = "private"
+# }
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.bucket.id
