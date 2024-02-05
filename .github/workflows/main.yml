@@ -57,11 +57,18 @@ jobs:
     #     terragrunt_version: 0.35.16
     #     token: ${{ secrets.GITHUB_TOKEN }}
 
+    # - name: Export outputs from terrafrom to GITHUB_OUTPUT
+    #   id: env
+    #   run: |
+    #     echo CLOUDFRONT_URL=$(cd cloudfront && terragrunt output -raw cloudfront_url) >> $GITHUB_OUTPUT
+    #     echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) >> $GITHUB_OUTPUT
+    #   working-directory: ./terraform/environments/dev
+    
     - name: Export outputs from terrafrom to GITHUB_OUTPUT
       id: env
       run: |
-        echo CLOUDFRONT_URL=$(cd cloudfront && terragrunt output -raw cloudfront_url) >> $GITHUB_OUTPUT
-        echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) >> $GITHUB_OUTPUT
+        echo CLOUDFRONT_URL=001 >> $GITHUB_OUTPUT
+        echo BUCKET_ID=002 >> $GITHUB_OUTPUT
       working-directory: ./terraform/environments/dev
 
     # # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
