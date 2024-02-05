@@ -56,10 +56,10 @@ jobs:
         terragrunt_version: 0.35.16
         token: ${{ secrets.GITHUB_TOKEN }}
 
-    # # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
-    # - name: Terragrunt Init in dev environment
-    #   run: terragrunt init --terragrunt-non-interactive
-    #   working-directory: ./terraform/environments/dev
+    # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terragrunt refresh
+      run: terragrunt run-all refresh --terragrunt-non-interactive
+      working-directory: ./terraform/environments/dev
   
     - name: Terragrunt apply
       run: terragrunt run-all apply --terragrunt-non-interactive -auto-approve
