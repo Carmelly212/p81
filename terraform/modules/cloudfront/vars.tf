@@ -12,6 +12,7 @@ variable "origin_id" {
 variable "cloudfront_distribution_id" {
   description = "The CloudFront Distribution ID"
   type        = string
+  default     = "some-default-value"  # Only if a sensible default is possible
 }
 
 variable "tags" {
