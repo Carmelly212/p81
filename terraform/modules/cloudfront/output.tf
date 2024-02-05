@@ -1,3 +1,4 @@
+# outputs to be used later as environment variables
 output "cloudfront_distribution_id" {
   description = "The identifier for the distribution."
   value       = try(aws_cloudfront_distribution.distribution.id, "")
