@@ -1,3 +1,7 @@
+include {
+  path = find_in_parent_folders()
+}
+
 locals {
   environment = get_env("p81ENV")
   region = get_env("AWS_REGION")

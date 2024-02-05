@@ -1,3 +1,7 @@
+include {
+  path = find_in_parent_folders()
+}
+
 locals {
   environment = get_env("p81ENV")
   aws_account_id = get_env("AWS_ACCOUNT_ID")
