@@ -59,8 +59,9 @@ def main():
     upload_to_s3(BUCKET_NAME, FILE_NAME, s3_client)
 
     # Wait for a short time before downloading via CloudFront
-    print("Waiting for CloudFront distribution...")
-    time.sleep(15)  # Wait time in seconds; adjust as needed
+    sleep_time = 15
+    print(f"Waiting {sleep_time} seconds for CloudFront distribution...")
+    time.sleep(sleep_time)  # Wait time in seconds; 
 
     # Download via CloudFront
     cloudfront_full_url = f'{CLOUDFRONT_URL}/{FILE_NAME}'

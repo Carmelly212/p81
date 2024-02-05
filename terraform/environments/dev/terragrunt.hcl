@@ -2,7 +2,7 @@ locals {
   environment = get_env("p81ENV")
   relative_path = path_relative_to_include()
 }
-
+# Configure the AWS Provider and the S3 remote state backend for the root module and all child modules
 remote_state {
   backend = "s3"
   generate = {
@@ -16,7 +16,7 @@ remote_state {
     encrypt        = true
   }
 }
-
+# Generate the provider configuration for the root module
 generate "provider" {
   path = "provider.tf"
   if_exists = "overwrite"

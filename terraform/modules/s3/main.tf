@@ -1,6 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
-  # acl = "private"
 
   tags = {
     "Name"      = "ProductCloudFront",
@@ -16,18 +15,11 @@ resource "aws_s3_bucket_ownership_controls" "aws_s3_bucket_ownership_controls" {
   }
 }
 
-# resource "aws_s3_bucket_acl" "acl" {
-#   depends_on = [aws_s3_bucket_ownership_controls.aws_s3_bucket_ownership_controls]
-
-#   bucket = aws_s3_bucket.bucket.id
-#   acl    = "private"
-# }
-
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.bucket.id
   policy = jsonencode({
     Version = "2008-10-17",
-     Id = "PolicyForCloudFrontPrivateContent",
+    Id = "PolicyForCloudFrontPrivateContent",
     Statement = [
       {
         Sid       = "AllowCloudFrontServicePrincipal",
