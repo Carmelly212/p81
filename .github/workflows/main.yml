@@ -62,6 +62,7 @@ jobs:
       run: |
         echo CLOUDFRONT_URL=$(cd cloudfront && terragrunt output -raw cloudfront_url) >> $GITHUB_OUTPUT
         echo BUCKET_ID=$(cd s3 && terragrunt output -raw bucket_id) >> $GITHUB_OUTPUT
+      working-directory: ./terraform/environments/dev
 
     # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terragrunt Init in dev environment
