@@ -1,11 +1,6 @@
 resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
-
-  tags = {
-    "Name"      = "ProductCloudFront",
-    "Owner"     = "Alon Carmelly",
-    "Terraform" = "True"
-  }
+  tags = var.tags
 }
 
 resource "aws_s3_bucket_ownership_controls" "aws_s3_bucket_ownership_controls" {

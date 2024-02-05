@@ -12,13 +12,12 @@ variable "origin_id" {
 variable "cloudfront_distribution_id" {
   description = "The CloudFront Distribution ID"
   type        = string
-  default     = "some-default-value"  # Only if a sensible default is possible
 }
 
-// q: what is the purpose of the origin_domain_name and where to get it from?
-
-// q:  where to use origin_domain_name and origin_id? 
-
-
+variable "tags" {
+  description = "A map of tags to add to all resources"
+  type        = map(string)
+  default     = {}
+}
 
 

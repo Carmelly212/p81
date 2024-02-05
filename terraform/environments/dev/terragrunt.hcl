@@ -1,6 +1,11 @@
 locals {
   environment = get_env("p81ENV")
   relative_path = path_relative_to_include()
+  common_tags = {
+    Name      = "ProductCloudFront"
+    Owner     = "Alon Carmelly" 
+    Terraform = "True"
+  }
 }
 # Configure the AWS Provider and the S3 remote state backend for the root module and all child modules
 remote_state {
@@ -27,3 +32,6 @@ provider "aws" {
 EOF
 }
 
+inputs = {
+  tags = local.common_tags
+}
