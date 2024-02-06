@@ -20,6 +20,34 @@ Before using this repository, you must have the following installed:
 - AWS CLI
 - Configured AWS credentials with the necessary permissions
 
+## GitHub Actions Secrets
+
+For the GitHub Actions workflow to function correctly, certain secrets must be set in the repository's settings. These secrets enable the workflow to interact with AWS services securely.
+
+### Required Secrets
+
+Make sure the following secrets are defined in the GitHub Actions settings of your repository:
+
+| Secret Name             | Description |
+|-------------------------|-------------|
+| `AWS_ACCESS_KEY_ID`     | The access key for your AWS IAM user. |
+| `AWS_SECRET_ACCESS_KEY` | The secret access key for your AWS IAM user. |
+| `AWS_ACCOUNT_ID`        | Your AWS account ID. |
+
+### Setting Secrets
+
+To set these secrets:
+
+1. Go to your GitHub repository.
+2. Click on `Settings` > `Secrets and variables` > `Actions`.
+3. Click on `New repository secret`.
+4. Add each of the above secrets one by one.
+
+### Usage in GitHub Actions
+
+These secrets are utilized in the `.github/workflows/main.yml` file to configure AWS CLI and authenticate Terraform for infrastructure deployment and management. The secrets are injected as environment variables and are not logged or exposed during the execution of the GitHub Actions workflow.
+
+
 ## Usage
 
 To deploy the infrastructure:
